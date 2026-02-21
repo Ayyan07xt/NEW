@@ -19,7 +19,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: white; overflow-x: hidden; }
 
-        /* --- PREMIUM NAME POPUP --- */
+        /* --- NAME POPUP --- */
         #name-popup {
             position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100000;
             display: none; justify-content: center; align-items: center; padding: 20px;
@@ -34,9 +34,7 @@
             padding: 15px; border-radius: 15px; color: white; margin: 20px 0; text-align: center; font-size: 16px;
         }
 
-        /* --- SKELETON & SPLASH --- */
-        .skeleton { background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
-        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        /* --- SPLASH & ANIMATIONS --- */
         #splash { position: fixed; inset: 0; background: #000; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .splash-ring { position: absolute; width: 220px; height: 220px; border: 2px solid var(--accent); border-radius: 50%; border-top-color: transparent; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -48,44 +46,34 @@
 
         /* --- HEADER --- */
         header { position: sticky; top: 0; z-index: 1000; background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(20px); padding: 15px 20px; border-bottom: 1px solid var(--border); }
-        .logo-wrap { display: flex; flex-direction: column; line-height: 1; }
         .logo { font-weight: 800; font-size: 24px; letter-spacing: -1px; }
         .logo span { color: var(--accent); }
-        .sub-logo { font-size: 11px; letter-spacing: 4px; color: #666; font-weight: 600; text-transform: uppercase; margin-top: 2px; }
-        .greeting-text { font-size: 14px; color: var(--accent); margin-top: 8px; font-weight: 500; }
+        .sub-logo { font-size: 11px; letter-spacing: 4px; color: #666; font-weight: 600; text-transform: uppercase; }
 
-        /* --- SEARCH & FILTERS --- */
+        /* --- UI ELEMENTS --- */
         .search-container { padding: 15px 20px 5px; }
-        .search-box {
-            background: var(--glass); border: 1px solid var(--border);
-            padding: 12px 15px; border-radius: 15px; display: flex; align-items: center; gap: 10px;
-        }
+        .search-box { background: var(--glass); border: 1px solid var(--border); padding: 12px 15px; border-radius: 15px; display: flex; align-items: center; gap: 10px; }
         .search-box input { background: transparent; border: none; color: white; width: 100%; outline: none; }
 
         .filter-bar { display: flex; gap: 12px; padding: 15px 20px; overflow-x: auto; scrollbar-width: none; }
         .f-pill { background: var(--glass); border: 1px solid var(--border); padding: 8px 18px; border-radius: 50px; font-size: 13px; color: #aaa; cursor: pointer; white-space: nowrap; }
-        .f-pill.active { background: var(--accent); color: #000; font-weight: 600; border-color: var(--accent); }
+        .f-pill.active { background: var(--accent); color: #000; font-weight: 600; }
 
-        /* --- HOTEL CARDS --- */
         .container { padding: 10px 20px 120px; display: grid; gap: 20px; }
         .card { background: var(--card); border-radius: 24px; overflow: hidden; border: 1px solid var(--border); }
         .img-wrap { width: 100%; height: 180px; background: #1a1a1a; }
-        .img-wrap img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s; }
-        .img-wrap img.loaded { opacity: 1; }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- DISHES & QTY --- */
         .dish { display: flex; align-items: center; gap: 15px; padding: 12px; background: var(--glass); border-radius: 20px; margin-bottom: 12px; border: 1px solid var(--border); }
         .dish-img { width: 65px; height: 65px; border-radius: 12px; object-fit: cover; }
         .qty-controls { display: flex; align-items: center; background: white; color: black; border-radius: 12px; padding: 5px 10px; gap: 12px; font-weight: 800; }
-        .qty-btn { cursor: pointer; padding: 2px 8px; font-size: 18px; }
         .add-btn { background: white; color: #000; border: none; padding: 10px 18px; border-radius: 12px; font-weight: 800; }
 
-        /* --- NAV & CART --- */
         nav { position: fixed; bottom: 0; width: 100%; z-index: 1000; background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--border); }
         .nav-btn { color: #555; text-align: center; font-size: 11px; text-decoration: none; }
         .nav-btn.active { color: var(--accent); }
         .nav-btn i { font-size: 22px; margin-bottom: 4px; display: block; }
-        
+
         textarea { width: 100%; background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 15px; color: white; margin: 20px 0; min-height: 100px; outline: none; }
         .hidden { display: none !important; }
     </style>
@@ -95,15 +83,15 @@
     <div id="name-popup">
         <div class="popup-card">
             <h2 style="font-weight: 800; color: var(--accent);">Namaste!</h2>
-            <p style="font-size: 13px; color: #888; margin-top: 5px;">Ajara ke premium food experience ke liye apna naam batayein.</p>
+            <p style="font-size: 13px; color: #888; margin-top: 5px;">Ajara Food Delivery ke liye apna naam batayein.</p>
             <input type="text" id="user-name-input" class="popup-input" placeholder="Aapka Naam...">
-            <button onclick="saveName()" style="width: 100%; background: var(--accent); border: none; padding: 15px; border-radius: 15px; font-weight: 800;">START ORDERING</button>
+            <button onclick="saveName()" style="width: 100%; background: var(--accent); border: none; padding: 15px; border-radius: 15px; font-weight: 800;">CHALO START KAREIN</button>
         </div>
     </div>
 
     <div id="splash">
         <div class="splash-ring"></div>
-        <div class="logo-wrap" style="align-items: center;">
+        <div style="text-align: center; z-index: 10;">
             <h2 class="logo">GenZ<span>Foods</span></h2>
             <span class="sub-logo" style="color: var(--accent);">Ajara</span>
         </div>
@@ -111,15 +99,12 @@
 
     <div id="app">
         <header>
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div class="logo-wrap">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
                     <div class="logo">GenZ<span>Foods</span></div>
                     <div class="sub-logo">Ajara</div>
                 </div>
-                <div style="text-align: right;">
-                    <div id="greeting" class="greeting-text">Hello!</div>
-                    <div style="font-size: 9px; color: #444; margin-top: 2px;">AUTHENTIC AJARA</div>
-                </div>
+                <div id="greeting" style="font-size: 13px; color: var(--accent); font-weight: 600;"></div>
             </div>
         </header>
 
@@ -127,20 +112,12 @@
             <div class="search-container">
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass" style="color: #555;"></i>
-                    <input type="text" id="hotel-search" placeholder="Search Hotels or Food..." oninput="searchHotels(this.value)">
+                    <input type="text" placeholder="Search for food or hotels..." oninput="searchHotels(this.value)">
                 </div>
             </div>
-
-            <div id="last-order-section" class="hidden" style="padding: 10px 20px 0;">
-                <div style="background: var(--glass); padding: 12px 18px; border-radius: 15px; border: 1px dashed #333; display: flex; justify-content: space-between; align-items: center;">
-                    <span id="last-order-name" style="font-size: 12px; color: #888;"></span>
-                    <i class="fa-solid fa-clock-rotate-left" style="color: var(--accent);"></i>
-                </div>
-            </div>
-
             <div class="filter-bar">
                 <div class="f-pill active" onclick="filterData('All', this)">All</div>
-                <div class="f-pill" onclick="filterData('Veg', this)">Pure Veg</div>
+                <div class="f-pill" onclick="filterData('Veg', this)">Veg</div>
                 <div class="f-pill" onclick="filterData('Non-Veg', this)">Non-Veg</div>
             </div>
             <div class="container" id="hotel-list"></div>
@@ -149,22 +126,22 @@
         <section id="page-menu" class="hidden">
             <div style="padding: 15px 20px; display: flex; align-items: center; gap: 15px; position: sticky; top: 75px; background: var(--bg); z-index: 100;">
                 <i class="fa-solid fa-chevron-left" style="color: var(--accent); font-size: 20px;" onclick="navTo('page-home')"></i>
-                <h2 id="menu-title" style="font-size: 20px; font-weight: 800;"></h2>
+                <h2 id="menu-title" style="font-size: 18px; font-weight: 800;"></h2>
             </div>
             <div class="container" id="dish-list"></div>
         </section>
 
         <section id="page-cart" class="hidden">
             <div class="container">
-                <h2 style="font-size: 30px; font-weight: 800;">Your <span style="color:var(--accent)">Bag</span></h2>
+                <h2 style="font-size: 28px; font-weight: 800;">Your <span style="color:var(--accent)">Bag</span></h2>
                 <div id="cart-content" style="margin-top: 20px;"></div>
-                <textarea id="address" placeholder="Bhai, Landmark aur Galli No. likho (Address)..."></textarea>
-                <div style="display: flex; justify-content: space-between; font-size: 24px; font-weight: 800; border-top: 1px solid var(--border); padding-top: 20px;">
+                <textarea id="address" placeholder="Bhai, Pura Address likho (Galli No, Landmark, Area)..."></textarea>
+                <div style="display: flex; justify-content: space-between; font-size: 22px; font-weight: 800; border-top: 1px solid var(--border); padding-top: 20px;">
                     <span>Total Bill</span>
                     <span id="cart-total" style="color: var(--accent);">₹0</span>
                 </div>
-                <button onclick="checkout()" style="width:100%; background:#25D366; color:white; border:none; padding:20px; border-radius:22px; font-weight: 800; margin-top: 30px; font-size: 16px;">
-                    <i class="fa-brands fa-whatsapp"></i> ORDER ON WHATSAPP
+                <button onclick="requestLocationAndCheckout()" style="width:100%; background:#25D366; color:white; border:none; padding:18px; border-radius:20px; font-weight: 800; margin-top: 30px;">
+                    <i class="fa-brands fa-whatsapp"></i> SEND ORDER WITH LOCATION
                 </button>
             </div>
         </section>
@@ -177,68 +154,63 @@
     </div>
 
     <script>
-        const hotels = Array.from({length: 20}, (_, i) => ({
-            id: i + 1,
-            name: ["Burger King Ajara", "Pizza Artisans", "Biryani Darbar", "Ajara Sweet Mart", "Royal Cafe", "The Roll Co", "Desi Dhaba", "Sushi Luxe", "Waffle World", "Grill & Chill", "Momo Hub", "Pasta Point", "Fresh Juice Bar", "Thali House", "Chai Shai", "Golden Bakery", "South Tiffin", "Kabab Korner", "Salad Garden", "The Dessert Lab"][i],
-            type: i % 3 === 0 ? "Veg" : "Non-Veg",
-            img: `https://loremflickr.com/500/350/food,restaurant?lock=${i + 800}`
-        }));
+        const hotelData = [
+            { name: "Burger King Ajara", type: "Non-Veg", dishes: ["Crispy Veg Burger", "Chicken Whopper", "Cheese Fries", "Veggie Strips"] },
+            { name: "Ajara Sweet Mart", type: "Veg", dishes: ["Special Pedha", "Garam Jalebi", "Kaju Katli", "Samosa Chaat"] },
+            { name: "Biryani Darbar", type: "Non-Veg", dishes: ["Chicken Dum Biryani", "Mutton Handi", "Jeera Rice", "Egg Masala"] },
+            { name: "Pizza Artisans", type: "Veg", dishes: ["Margherita Pizza", "Paneer Tikka Pizza", "Garlic Bread", "Pasta Alfredo"] }
+        ];
 
         let cart = {};
+        let userLocation = "Location not shared";
 
         window.onload = () => {
-            checkUser();
+            const name = localStorage.getItem('userName');
+            if(!name) document.getElementById('name-popup').style.display = 'flex';
+            else updateGreeting(name);
+
             setTimeout(() => {
                 document.getElementById('splash').style.display = 'none';
                 document.getElementById('app').classList.add('visible');
                 renderHotels('All');
-                showLastOrder();
-            }, 3000);
+            }, 2500);
         };
 
-        function checkUser() {
-            const name = localStorage.getItem('userName');
-            if(!name) document.getElementById('name-popup').style.display = 'flex';
-            else updateGreeting(name);
-        }
-
         function saveName() {
-            const name = document.getElementById('user-name-input').value;
-            if(name.length < 2) return alert("Bhai, apna sahi naam likho!");
-            localStorage.setItem('userName', name);
+            const n = document.getElementById('user-name-input').value;
+            if(n.length < 2) return alert("Sahi naam likho bhai!");
+            localStorage.setItem('userName', n);
             document.getElementById('name-popup').style.display = 'none';
-            updateGreeting(name);
+            updateGreeting(n);
         }
 
-        function updateGreeting(name) {
+        function updateGreeting(n) {
             const hr = new Date().getHours();
-            const wish = hr < 12 ? "Good Morning" : hr < 17 ? "Good Afternoon" : "Good Evening";
-            document.getElementById('greeting').innerText = `${wish}, ${name}!`;
+            const wish = hr < 12 ? "Morning" : hr < 17 ? "Afternoon" : "Evening";
+            document.getElementById('greeting').innerText = `Good ${wish}, ${n}!`;
         }
 
         function haptic() { if(window.navigator.vibrate) window.navigator.vibrate(15); }
 
-        function renderHotels(filter, data = hotels) {
+        function renderHotels(filter, query = "") {
             const list = document.getElementById('hotel-list');
             list.innerHTML = "";
-            const filtered = filter === 'All' ? data : data.filter(h => h.type === filter);
-            filtered.forEach(h => {
-                list.innerHTML += `
-                    <div class="card" onclick="openMenu('${h.name}')">
-                        <div class="img-wrap skeleton"><img src="${h.img}" onload="this.classList.add('loaded'); this.parentElement.classList.remove('skeleton')"></div>
-                        <div style="padding:15px;">
-                            <span style="font-size:10px; color:var(--accent); font-weight:800; letter-spacing:1px;">${h.type.toUpperCase()} • AJARA ELITE</span>
-                            <h4 style="margin-top:4px; font-size:16px;">${h.name}</h4>
+            hotelData.forEach((h, i) => {
+                if((filter === 'All' || h.type === filter) && h.name.toLowerCase().includes(query.toLowerCase())) {
+                    list.innerHTML += `
+                        <div class="card" onclick="openMenu(${i})">
+                            <div class="img-wrap"><img src="https://loremflickr.com/500/300/food?lock=${i+10}"></div>
+                            <div style="padding:15px;">
+                                <span style="font-size:10px; color:var(--accent); font-weight:800;">${h.type} • AJARA</span>
+                                <h4 style="margin-top:4px;">${h.name}</h4>
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                }
             });
         }
 
-        function searchHotels(query) {
-            const filtered = hotels.filter(h => h.name.toLowerCase().includes(query.toLowerCase()));
-            renderHotels('All', filtered);
-        }
+        function searchHotels(q) { renderHotels('All', q); }
 
         function filterData(cat, el) {
             document.querySelectorAll('.f-pill').forEach(p => p.classList.remove('active'));
@@ -246,47 +218,48 @@
             renderHotels(cat);
         }
 
-        function openMenu(hotelName) {
+        function openMenu(index) {
+            const hotel = hotelData[index];
             navTo('page-menu');
-            document.getElementById('menu-title').innerText = hotelName;
+            document.getElementById('menu-title').innerText = hotel.name;
             const list = document.getElementById('dish-list');
             list.innerHTML = "";
-            for(let i=1; i<=12; i++) {
-                const id = `${hotelName.replace(/\s+/g, '')}-${i}`;
-                const price = 120 + (i*15);
-                const qty = cart[id]?.qty || 0;
+            hotel.dishes.forEach((d, i) => {
+                const dishId = `${hotel.name.replace(/\s+/g, '')}_${d.replace(/\s+/g, '')}`;
+                const price = 100 + (i * 40);
+                const qty = cart[dishId]?.qty || 0;
                 list.innerHTML += `
                     <div class="dish">
-                        <img src="https://loremflickr.com/150/150/dish,food?lock=${i+900}" class="dish-img">
-                        <div style="flex:1"><h4>Special Dish #${i}</h4><b style="color:var(--accent)">₹${price}</b></div>
-                        <div id="btn-${id}">${qty > 0 ? renderQty(id, price, i) : `<button class="add-btn" onclick="updateQty('${id}','Dish #${i}',${price},1)">ADD +</button>`}</div>
+                        <img src="https://loremflickr.com/150/150/dish?lock=${dishId.length}" class="dish-img">
+                        <div style="flex:1">
+                            <h4 style="font-size:15px;">${d}</h4>
+                            <b style="color:var(--accent)">₹${price}</b>
+                        </div>
+                        <div id="btn-${dishId}">
+                            ${qty > 0 ? renderQty(dishId, d, price) : `<button class="add-btn" onclick="updateQty('${dishId}','${d}',${price},1)">ADD +</button>`}
+                        </div>
                     </div>
                 `;
-            }
+            });
         }
 
-        function renderQty(id, p, i) {
-            return `<div class="qty-controls"><span class="qty-btn" onclick="updateQty('${id}','Dish #${i}',${p},-1)">-</span><span>${cart[id].qty}</span><span class="qty-btn" onclick="updateQty('${id}','Dish #${i}',${p},1)">+</span></div>`;
+        function renderQty(id, name, p) {
+            return `<div class="qty-controls"><span onclick="updateQty('${id}','${name}',${p},-1)">-</span><span>${cart[id].qty}</span><span onclick="updateQty('${id}','${name}',${p},1)">+</span></div>`;
         }
 
-        function updateQty(id, n, p, d) {
+        function updateQty(id, name, price, delta) {
             haptic();
-            if(!cart[id]) cart[id] = { n, p, qty: 0 };
-            cart[id].qty += d;
+            if(!cart[id]) cart[id] = { name: name, price: price, qty: 0 };
+            cart[id].qty += delta;
             if(cart[id].qty <= 0) delete cart[id];
-            
             const btn = document.getElementById(`btn-${id}`);
-            if(btn) btn.innerHTML = cart[id] ? renderQty(id, p, id.split('-').pop()) : `<button class="add-btn" onclick="updateQty('${id}','${n}',${p},1)">ADD +</button>`;
+            if(btn) btn.innerHTML = cart[id] ? renderQty(id, name, price) : `<button class="add-btn" onclick="updateQty('${id}','${name}',${price},1)">ADD +</button>`;
             if(!document.getElementById('page-cart').classList.contains('hidden')) renderCart();
         }
 
         function navTo(id) {
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
-            if(id === 'page-home') {
-                const target = document.getElementById(id);
-                target.classList.remove('flow-entrance'); void target.offsetWidth; target.classList.add('flow-entrance');
-            }
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             if(id === 'page-cart') { document.querySelectorAll('.nav-btn')[1].classList.add('active'); renderCart(); }
             else if(id === 'page-home') document.querySelectorAll('.nav-btn')[0].classList.add('active');
@@ -296,24 +269,33 @@
         function renderCart() {
             const list = document.getElementById('cart-content');
             const keys = Object.keys(cart);
-            if(keys.length === 0) { list.innerHTML = "<p style='text-align:center;color:#444;padding:50px;'>Bag is empty! Kuch add karo bhai.</p>"; document.getElementById('cart-total').innerText = "₹0"; return; }
-            
+            if(keys.length === 0) { list.innerHTML = "<p style='text-align:center;color:#555;padding:40px;'>Bag khali hai!</p>"; document.getElementById('cart-total').innerText = "₹0"; return; }
             list.innerHTML = keys.map(k => `
                 <div class="dish">
-                    <div style="flex:1"><h4>${cart[k].n}</h4><b>₹${cart[k].p} × ${cart[k].qty}</b></div>
-                    <div class="qty-controls"><span class="qty-btn" onclick="updateQty('${k}','${cart[k].n}',${cart[k].p},-1)">-</span><span>${cart[k].qty}</span><span class="qty-btn" onclick="updateQty('${k}','${cart[k].n}',${cart[k].p},1)">+</span></div>
+                    <div style="flex:1"><h4>${cart[k].name}</h4><b>₹${cart[k].price} × ${cart[k].qty}</b></div>
+                    <div class="qty-controls"><span onclick="updateQty('${k}','${cart[k].name}',${cart[k].price},-1)">-</span><span>${cart[k].qty}</span><span onclick="updateQty('${k}','${cart[k].name}',${cart[k].price},1)">+</span></div>
                 </div>
             `).join('');
-            
-            let total = 0; for(let k in cart) total += (cart[k].p * cart[k].qty);
+            let total = 0; for(let k in cart) total += (cart[k].price * cart[k].qty);
             document.getElementById('cart-total').innerText = `₹${total}`;
         }
 
-        function showLastOrder() {
-            const last = localStorage.getItem('lastOrder');
-            if(last) {
-                document.getElementById('last-order-section').classList.remove('hidden');
-                document.getElementById('last-order-name').innerText = `Reorder: ${last}`;
+        function requestLocationAndCheckout() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        userLocation = `https://www.google.com/maps?q=${lat},${lon}`;
+                        checkout();
+                    },
+                    (error) => {
+                        console.log("Location denied");
+                        checkout(); // Continue even if location denied
+                    }
+                );
+            } else {
+                checkout();
             }
         }
 
@@ -322,40 +304,34 @@
             const keys = Object.keys(cart);
             const userName = localStorage.getItem('userName') || "Customer";
             
-            if(!addr) return alert("Bhai, address bina delivery kidhar karenge?");
+            if(!addr) return alert("Address toh daalo bhai!");
             if(keys.length === 0) return alert("Bag khali hai!");
 
             const now = new Date();
-            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const dateStr = now.toLocaleDateString();
+            const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            let itemsText = "";
-            let totalBill = 0;
-            
-            keys.forEach((k, index) => {
+            let itemsMsg = "";
+            let total = 0;
+            keys.forEach((k, i) => {
                 const item = cart[k];
-                const itemTotal = item.p * item.qty;
-                totalBill += itemTotal;
-                itemsText += `${index + 1}. *${item.n}* %0A   Qty: ${item.qty} x ₹${item.p} = *₹${itemTotal}*%0A`;
+                total += (item.price * item.qty);
+                itemsMsg += `${i+1}. *${item.name}* (x${item.qty}) - ₹${item.price * item.qty}%0A`;
             });
 
-            localStorage.setItem('lastOrder', `${keys.length} Items (₹${totalBill})`);
-
-            const message = 
-                `*NEW ORDER - GENZ FOODS AJARA*%0A` +
+            const finalMessage = 
+                `*GENZ FOODS AJARA - NEW ORDER*%0A` +
                 `--------------------------%0A` +
-                `👤 *Name:* ${userName}%0A` +
-                `📅 *Date:* ${dateStr}%0A` +
-                `⏰ *Time:* ${timeStr}%0A` +
+                `👤 *Customer:* ${userName}%0A` +
+                `⏰ *Time:* ${time}%0A` +
                 `--------------------------%0A` +
-                `🍴 *ORDER LIST:*%0A${itemsText}%0A` +
-                `--------------------------%0A` +
-                `💰 *TOTAL BILL:* ₹${totalBill}%0A` +
+                `🍴 *ITEMS:*%0A${itemsMsg}%0A` +
+                `💰 *TOTAL BILL:* ₹${total}%0A` +
                 `📍 *ADDRESS:* ${addr}%0A` +
+                `📍 *GPS LOCATION:* ${userLocation}%0A` +
                 `--------------------------%0A` +
-                `*Bhai, Order Confirm Kardo!*`;
+                `*Bhai, Order Confirmation bhej do!*`;
 
-            window.open(`https://wa.me/917757007795?text=${message}`);
+            window.open(`https://wa.me/917757007795?text=${finalMessage}`);
         }
     </script>
 </body>
